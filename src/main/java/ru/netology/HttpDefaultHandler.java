@@ -8,12 +8,7 @@ import java.nio.file.Path;
 public class HttpDefaultHandler implements Handler {
     @Override
     public void handle(Request request, BufferedOutputStream responseStream) throws IOException {
-        if (!request.getMethod().equalsIgnoreCase("GET")) {
-            new HttpHandlerBadRequest().handle(request, responseStream);
-            return;
-        }
-
-        Path path = Path.of("./public" + request.getPath());
+        Path path = Path.of(Server.HTTP_ROOT + request.getPath());
         long length = Files.size(path);
         responseStream.write((
                 "HTTP/1.1 200 OK\r\n" +
@@ -24,7 +19,7 @@ public class HttpDefaultHandler implements Handler {
         ).getBytes());
 
         if (!request.getQueryParams().isEmpty()) {
-            String template = Files.readString(Path.of("./public/forms_response.html"));
+            String template = Files.readString(Path.of(Server.HTTP_ROOT+ "forms_response.html"));
             byte[] content = template
                     .replace("{login}", request.getQueryParam("login"))
                     .replace("{password}", request.getQueryParam("password")).getBytes();

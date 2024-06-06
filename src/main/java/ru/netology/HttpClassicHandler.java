@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class HttpClassicHandler implements Handler {
     @Override
     public void handle(Request request, BufferedOutputStream responseStream) throws IOException {
-        String template = Files.readString(Path.of("./public" + request.getPath()));
+        String template = Files.readString(Path.of(Server.HTTP_ROOT + request.getPath()));
         byte[] content = template.replace(
                 "{time}",
                 LocalDateTime.now().toString()

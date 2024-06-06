@@ -10,10 +10,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         final Server server = new Server();
 
-        // сбор списка путей-файлов (/path) из каталога ./public
+        // сбор списка путей-файлов (/path) из каталога ./public (Server.HTTP_ROOT)
         // и добавление всех GET обработчиков по умолчанию
         List<String> paths = Files
-                .walk(Paths.get("./public"))
+                .walk(Paths.get(Server.HTTP_ROOT))
                 .filter(Files::isRegularFile)
                 .map(f -> "/" + f.getFileName())
                 .collect(Collectors.toList());

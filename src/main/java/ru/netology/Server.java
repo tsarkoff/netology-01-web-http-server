@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class Server {
+    public static final String HTTP_ROOT = "./public";
     private boolean running;
     public static final Map<Handler, Map<String, Set<String>>> handlers = new HashMap<>(); // <Handler, <Methods, Paths>>
     private final ExecutorService threadPool = Executors.newFixedThreadPool(64);

@@ -99,15 +99,18 @@ public class ProcessClientRequest implements Runnable {
 
         URI uriPath = new URI(httpPath);
         List<NameValuePair> params = URLEncodedUtils.parse(uriPath, StandardCharsets.UTF_8);
-        String mimeType = Files.probeContentType(Path.of("./public" + uriPath.getPath()));
+        String mimeType = Files.probeContentType(Path.of(Server.HTTP_ROOT + uriPath.getPath()));
+        List<NameValuePair> bodyParams = URLEncodedUtils.parse(new URI(uriPath.getPath() + "?" + body), StandardCharsets.UTF_8);
+
         final Request request = new Request(
                 httpMethod,             // method
                 uriPath.getPath(),      // path
-                uriPath.getQuery(),     // query string
                 headers,                // headers
+                uriPath.getQuery(),     // query string
                 params,                 // request parameters (http://urt?inline=)
                 mimeType,               // content type
-                body                    // request body if present
+                body,                   // request body if present
+                bodyParams              // body params
         );
 
         // Поиск Обработчика
