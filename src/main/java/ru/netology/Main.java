@@ -1,7 +1,5 @@
 package ru.netology;
 
-import lombok.NonNull;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,6 +23,7 @@ public class Main {
         server.addHandler("GET", "/classic.html", new HttpClassicHandler());
         server.addHandler("GET", "/forms.html", new HttpDefaultHandler());
         server.addHandler("POST", "/forms.html", new HttpPostHandler());
+        server.addHandler("POST", "/default-get.html", new HttpPostHandler());
 
         // Старт СЕРВЕРА
         server.listen(9999);

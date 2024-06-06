@@ -18,7 +18,7 @@ public class Server {
                 Socket cs = sc.accept();
                 System.out.println("Client socket accepted: " + cs.toString());
                 threadPool.submit(new ProcessClientRequest(
-                        new BufferedReader(new InputStreamReader(cs.getInputStream())),
+                        new BufferedInputStream(cs.getInputStream()),
                         new BufferedOutputStream(cs.getOutputStream()))
                 );
             }
